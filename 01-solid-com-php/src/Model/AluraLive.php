@@ -7,6 +7,11 @@ class AluraLive implements Pontuavel
 
     public function recuperarPontuacao(): int
     {
-        // TODO: Implement recuperarPontuacao() method.
+        return 200;
+    }
+
+    public function assistir(): void
+    {
+        // TODO: Implement assistir() method.
     }
 }
