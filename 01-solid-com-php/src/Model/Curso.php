@@ -2,7 +2,9 @@
 
 namespace Alura\Solid\Model;
 
-class Curso
+use DomainException;
+
+class Curso implements Pontuavel
 {
     private $nome;
     private $videos;
@@ -15,19 +17,15 @@ class Curso
         $this->feedbacks = [];
     }
 
-    public function receberFeedback(int $nota, ?string $depoimento): void
+    public function receberFeedback(Feedback $feedback): void
     {
-        if ($nota < 9 && empty($depoimento)) {
-            throw new \DomainException('Depoimento obrigatório');
-        }
-
-        $this->feedbacks[] = [$nota, $depoimento];
+        $this->feedbacks[] = $feedback;
     }
 
     public function adicionarVideo(Video $video)
     {
         if ($video->minutosDeDuracao() < 3) {
-            throw new \DomainException('Video muito curto');
+            throw new DomainException('Video muito curto');
         }
 
         $this->videos[] = $video;
@@ -37,5 +35,10 @@ class Curso
     public function recuperarVideos(): array
     {
         return $this->videos;
+    }
+
+    public function recuperarPontuacao(): int
+    {
+        return 100;
     }
 }
